@@ -8516,6 +8516,44 @@ Future<void> checkAppUpdate(BuildContext context, {bool showNoUpdateDialog = tru
   }
 }
 
+Future<void> publishLatestAppRelease(BuildContext context) async {
+  final pos = Provider.of<PosProvider>(context, listen: false);
+  final approved = await requestOwnerPin(context, pos, title: 'Publish Release to Firebase');
+  if (!approved || !context.mounted) return;
+
+  try {
+    await FirebaseFirestore.instance
+        .collection('app_config')
+        .doc('latest_version')
+        .set({
+      'version': kCurrentAppVersion,
+      'versionCode': kCurrentAppVersionCode,
+      'downloadUrl': 'https://raw.githubusercontent.com/FTCGit/friends_tiffin_pos/main/app-release.apk',
+      'releaseNotes': '• Staff ID auto-increment fix\n• Owner-Only permissions enforcement\n• Staff Detail popup with activate & delete options\n• Multi-device staff sign-in support',
+      'forceUpdate': false,
+      'updatedAt': DateTime.now().toIso8601String(),
+    }, SetOptions(merge: true));
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Release v$kCurrentAppVersion published successfully to Firebase!'),
+          backgroundColor: AppTheme.success,
+        ),
+      );
+    }
+  } catch (e) {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to publish release: $e'),
+          backgroundColor: AppTheme.error,
+        ),
+      );
+    }
+  }
+}
+
 void showAppUpdateDialog(BuildContext context, AppUpdateInfo updateInfo) {
   showDialog(
     context: context,
@@ -9321,6 +9359,16 @@ class MainSettingsScreen extends StatelessWidget {
             subtitle: 'Installed Version: v$kCurrentAppVersion · Tap to check online',
             onTap: () => checkAppUpdate(context, showNoUpdateDialog: true),
           ),
+          if (!pos.isStaffUser) ...[
+            const SizedBox(height: 10),
+            _settingsTile(
+              icon: Icons.cloud_upload_rounded,
+              iconColor: AppTheme.primary,
+              title: 'Publish Release v$kCurrentAppVersion to Firebase',
+              subtitle: 'Set v$kCurrentAppVersion as latest online release for all app users',
+              onTap: () => publishLatestAppRelease(context),
+            ),
+          ],
           const SizedBox(height: 24),
           const Text(
             'Account',
