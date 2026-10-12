@@ -1,0 +1,57 @@
+name: friends_tiffin
+description: "Friends Tiffin POS"
+publish_to: 'none'
+
+version: 1.0.8+8
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.5+1
+  qr_flutter: ^4.1.0
+  intl: ^0.20.3
+  print_bluetooth_thermal: ^1.1.1
+  flutter_tts: ^4.2.5
+  permission_handler: ^13.0.2
+  shared_preferences: ^2.5.5
+  file_picker: ^13.1.0
+  firebase_core: ^3.10.1
+  firebase_auth: ^5.4.1
+  cloud_firestore: ^5.6.2
+  csv: ^8.0.0
+  path_provider: ^2.1.6
+  share_plus: ^13.3.1
+  url_launcher: ^6.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icon/app_icon.png
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+
+  web:
+    generate: true
+    image_path: "assets/icon/app_icon.png"
+    background_color: "#123D2A"
+    theme_color: "#123D2A"
+
+  windows:
+    generate: true
+    image_path: "assets/icon/app_icon.png"
+    icon_size: 256

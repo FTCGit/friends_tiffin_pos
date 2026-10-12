@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1094354438428",
+    "firebase_url": "https://friends-tiffin-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "friends-tiffin",
+    "storage_bucket": "friends-tiffin.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094354438428:android:1d5bba64f863a2060c12d9",
+        "android_client_info": {
+          "package_name": "com.example.friends_tiffin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaf4A7yazoC_d1sKuHh6QYampx8chVhSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
